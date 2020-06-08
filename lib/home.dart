@@ -6,6 +6,7 @@ import 'dart:math' as math;
 
 import 'camera.dart';
 import 'bndbox.dart';
+import 'coming_soon.dart';
 import 'models.dart';
 
 class HomePage extends StatefulWidget {
@@ -77,39 +78,120 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     Size screen = MediaQuery.of(context).size;
+
+    final alucard = Hero(
+      tag: 'hero',
+      child: Padding(
+        padding: EdgeInsets.only(top:48.0),
+        child: Image.asset('assets/logo1.png',height: 150,),
+
+      ),
+    );
+
+    final welcome = Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Text(
+        'Welcome to InsidAR',
+        style: TextStyle(fontSize: 28.0, color: Colors.white),
+      ),
+    );
+
+    final objectDetection = Padding(
+      padding: EdgeInsets.symmetric(vertical: 16.0),
+      child: RaisedButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24),
+        ),
+        onPressed: () {
+
+          onSelect(ssd);
+//                        ontext).pushNamed(HomePage.tag);
+        },
+        padding: EdgeInsets.all(12),
+        color: Colors.white,
+        child: Text('Object Detection', style: TextStyle(color: Colors.lightBlueAccent)),
+      ),
+    );
+
+
+    final objectDetectionWIthAR = Padding(
+      padding: EdgeInsets.symmetric(vertical: 16.0),
+      child: RaisedButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24),
+        ),
+        onPressed: () {
+
+          Navigator.of(context).push(new MaterialPageRoute(builder: (context){
+            return ComingSoon();
+          }));
+//          onSelect(ssd);
+//                        ontext).pushNamed(HomePage.tag);
+        },
+        padding: EdgeInsets.all(12),
+        color: Colors.white,
+        child: Text('Object Detection With AR', style: TextStyle(color: Colors.lightBlueAccent)),
+      ),
+    );
+    final lorem = Padding(
+      padding: EdgeInsets.all(8.0),
+      child: ListView(
+        shrinkWrap: true,
+        children: <Widget>[
+          objectDetection,
+          objectDetectionWIthAR
+        ],
+      )
+    );
+
+    final body = Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.all(28.0),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(colors: [
+          Colors.blue,
+          Colors.lightBlueAccent,
+        ]),
+      ),
+      child: Column(
+        children: <Widget>[alucard, welcome, lorem],
+      ),
+    );
+
     return Scaffold(
       body: _model == ""
-          ? Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  RaisedButton(
-                    child: const Text("Object Detection"),
-                    onPressed: () => onSelect(ssd),
-                  ),
-                  RaisedButton(
-                    child: const Text("Object Detection with AR"),
-                    onPressed: () {
-                      Scaffold.of(context).showSnackBar(new SnackBar(
-                        content: new Text("Coming Soon"),
-                      ));
-                    },
-                  ),
+//          ? Center(
+//              child: Row(
+//                mainAxisAlignment: MainAxisAlignment.center,
+//                children: <Widget>[
 //                  RaisedButton(
-//                    child: const Text(yolo),
-//                    onPressed: () => onSelect(yolo),
+//                    child: const Text("Object Detection"),
+//                    onPressed: () => onSelect(ssd),
 //                  ),
 //                  RaisedButton(
-//                    child: const Text(mobilenet),
-//                    onPressed: () => onSelect(mobilenet),
+//                    child: const Text("Object Detection with AR"),
+//                    onPressed: () {
+//                      Scaffold.of(context).showSnackBar(new SnackBar(
+//                        content: new Text("Coming Soon"),
+//                      ));
+//                    },
 //                  ),
-//                  RaisedButton(
-//                    child: const Text(posenet),
-//                    onPressed: () => onSelect(posenet),
-//                  ),
-                ],
-              ),
-            )
+////                  RaisedButton(
+////                    child: const Text(yolo),
+////                    onPressed: () => onSelect(yolo),
+////                  ),
+////                  RaisedButton(
+////                    child: const Text(mobilenet),
+////                    onPressed: () => onSelect(mobilenet),
+////                  ),
+////                  RaisedButton(
+////                    child: const Text(posenet),
+////                    onPressed: () => onSelect(posenet),
+////                  ),
+//                ],
+//              ),
+//            )
+    ?body
           : Stack(
               children: [
                 Camera(

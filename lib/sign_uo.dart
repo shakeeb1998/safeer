@@ -17,14 +17,7 @@ class _SignUpState extends State<SignUp> {
   @override
 
     Widget build(BuildContext context) {
-      final logo = Hero(
-        tag: 'hero',
-        child: CircleAvatar(
-          backgroundColor: Colors.transparent,
-          radius: 48.0,
-//        child: Image.asset('assets/logo.png'),
-        ),
-      );
+      final logo = Image.asset('assets/logo.png',height: 150,width: 150,);
 
 
       final name= TextFormField(
@@ -74,7 +67,7 @@ class _SignUpState extends State<SignUp> {
           labelText: "Password",
           enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0),borderSide: BorderSide(color: Colors.black)),
           contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0),borderSide: BorderSide(color: Colors.lightBlueAccent)),
         ),
       );
 
