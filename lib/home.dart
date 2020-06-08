@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:flutter_realtime_detection/static_handler.dart';
 import 'package:tflite/tflite.dart';
 import 'dart:math' as math;
 
@@ -8,9 +9,11 @@ import 'bndbox.dart';
 import 'models.dart';
 
 class HomePage extends StatefulWidget {
-  final List<CameraDescription> cameras;
+  List<CameraDescription> cameras;
 
-  HomePage(this.cameras);
+  HomePage(){
+  cameras=StaticHandler.cameras;
+  }
 
   @override
   _HomePageState createState() => new _HomePageState();
@@ -77,25 +80,33 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: _model == ""
           ? Center(
-              child: Column(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   RaisedButton(
-                    child: const Text(ssd),
+                    child: const Text("Object Detection"),
                     onPressed: () => onSelect(ssd),
                   ),
                   RaisedButton(
-                    child: const Text(yolo),
-                    onPressed: () => onSelect(yolo),
+                    child: const Text("Object Detection with AR"),
+                    onPressed: () {
+                      Scaffold.of(context).showSnackBar(new SnackBar(
+                        content: new Text("Coming Soon"),
+                      ));
+                    },
                   ),
-                  RaisedButton(
-                    child: const Text(mobilenet),
-                    onPressed: () => onSelect(mobilenet),
-                  ),
-                  RaisedButton(
-                    child: const Text(posenet),
-                    onPressed: () => onSelect(posenet),
-                  ),
+//                  RaisedButton(
+//                    child: const Text(yolo),
+//                    onPressed: () => onSelect(yolo),
+//                  ),
+//                  RaisedButton(
+//                    child: const Text(mobilenet),
+//                    onPressed: () => onSelect(mobilenet),
+//                  ),
+//                  RaisedButton(
+//                    child: const Text(posenet),
+//                    onPressed: () => onSelect(posenet),
+//                  ),
                 ],
               ),
             )
